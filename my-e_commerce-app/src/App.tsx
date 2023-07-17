@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './app/screens/Home/Index'
 import Login from './app/screens/Login/Index'
@@ -13,6 +11,7 @@ import ProdMod from './app/screens/ProdMod';
 import ProdCreate from './app/screens/ProdCreate';
 import ProdDetail from './app/screens/ProdDetail';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import CatDetail from './app/screens/categoriesdetail';
 
 function App() {
   const queryClient = new QueryClient();
@@ -26,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/categories" element={<Categories />} />
+            <Route path="/categories/:id" element={<CatDetail />} />
             <Route path="/products" element={<Products />} />
             <Route path="/" element={<Home />} />
             <Route path="/products/:id" element={<ProdDetail />} />
