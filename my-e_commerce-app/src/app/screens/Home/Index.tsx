@@ -1,7 +1,7 @@
 function Home() {
     return(
       <main>
-<Card></Card>
+
       </main>
         )
 }
