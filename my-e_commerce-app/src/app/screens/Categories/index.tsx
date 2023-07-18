@@ -14,22 +14,7 @@ const QUERY_KEY_CATEGORIES = 'categories';
     }
     return json;
 };
-/*const[idcat,setIcat]= useState (1)
 
-useEffect (()=>{fetchProCategories() },[idcat])
-
-const catHandler=()=>{ setIcat(category.id)
-
-}
-
-const fetchProCategories = async ()=>{
-    const res = await fetch(`https://api.escuelajs.co/api/v1/categories/``${idcat}/products`);
-    const json = await res.json();
-    if(json.error){
-        throw new Error(json.error);
-    }
-    return json;
-};*/
 
 
 
@@ -55,15 +40,7 @@ function Categories(){
                     )
                 })}
             </ul>
-           { /*<div>{data && json.map((product)=>{
-                    return(
-                        
-                        <Card nameProd={product.title} imageProd={product.image} idProd={product.id} priceProd={product.price} stockProd={0} detailProd={product.description}></Card>
-                        
-                    )
-                })}
-                
-            </div>*/}
+           
 
         </main>
         )
