@@ -3,56 +3,82 @@ import Card from "../../components/Card/Index";
 import { useState } from "react";
 
 const QUERY_KEY_PRODUCTS = 'products';
+    interface Product{
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    images: string[];
+    category: {
+      id: number;
+      name: string;
+      image: string;
+    };
+    }
 
-const fetchProducts = async ()=>{
-   const res = await fetch('https://api.escuelajs.co/api/v1/products');
-   const json = await res.json();
-   if(json.error){
-       throw new Error(json.error);
-   }
-   return json;
-};
 
+function Products() {
+    //estados de filtros
+    const fetchProducts = async () => {
+        const res = await fetch('https://api.escuelajs.co/api/v1/products');
+        const data = await res.json();
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        return data;
+    };
 
-function Products(){
-const [products] = useState (data.products)
-const [filters, setFilters]= useState ({
-    category: "all", 
-    minPrice: 0
-});
-    const{data, status, error}= useQuery(
-        QUERY_KEY_PRODUCTS, 
+    const { data:products, status, error } = useQuery<Product[]>(
+        QUERY_KEY_PRODUCTS,
         fetchProducts
-        );
-     console.log(data)
+    );
+    console.log(products)
 
-const filterProducts =  (products) => {
-    return products.filter(product => {
-        return (
-            product.price >= filters &&
-            (
-                filters.category==="all"||
-                product.category===filters.category
-            ) 
-        )
-    })
-}
+     const [ productsF, ] = useState (products)
+const [filters, setFilters]= useState ({
+    //id: 1, 
+    price: 800,
+});
+    console.log(typeof(products));
+    console.log(typeof(productsF));
+    //const [productsArray] = Object.entries(productsF);
+    //console.log(typeof(productsArray));
+    const filterProducts = productsF?.filter((product) => { 
+      return product.price > filters.price 
+   });
+   console.log(typeof(filterProducts));
+    /*const filterProducts =  (productsF) => {
+        return productsF.filter(productF => {
+            return (
+                productF.price > filters.price &&
+               (
+                    filters.category.id===1||
+                    productF.category.id===filters.category
+                ) 
+            )
+        })
+    }*/
 
-
-
-    return(
+    //const filteredProducts= filterProducts(productsF)
+    return (
         <div><h1>Products</h1>
-        
-         {data && data.map((product)=>{
+
+            {filterProducts && filterProducts.map((product)=>{
                     return(
                         
                         <Card  key={product.id} nameProd={product.title} idProd={product.id} imageProd={product.images} priceProd={product.price} detailProd={product.description}></Card>
                         
                     );
                 })}
-        
+           {/*  {filterProducts && filterProducts.map((product) => {
+                return (
+
+                    <Card key={product.id} nameProd={product.title} idProd={product.id} imageProd={product.images} priceProd={product.price} detailProd={product.description}></Card>
+
+                );
+            })}*/}
         </div>
-        
-        )
+
+    )
 }
 export default Products;
